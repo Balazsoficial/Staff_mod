@@ -24,7 +24,7 @@ public class MagmaStaffItem extends StaffItem{
             return TypedActionResult.pass(player.getStackInHand(hand));
         }
 
-        if (ManaSupplier.manaCheck(player, mana)) {
+
             Vec3d facing = player.getRotationVector();
 
             FireballEntity fireball = new FireballEntity(world, player, facing.x, facing.y, facing.z, 1);
@@ -34,8 +34,7 @@ public class MagmaStaffItem extends StaffItem{
 
 
             return TypedActionResult.success(player.getStackInHand(hand));
-        }
-        return TypedActionResult.fail(player.getStackInHand(hand));
+
     }
 
     public static void removeFireball(FireballEntity fireball) {

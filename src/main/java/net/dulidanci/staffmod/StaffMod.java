@@ -8,6 +8,7 @@ import net.dulidanci.staffmod.item.ModItemGroups;
 import net.dulidanci.staffmod.item.ModItems;
 import net.dulidanci.staffmod.item.custom.BellStaffItem;
 import net.dulidanci.staffmod.item.custom.LapisLazuliStaffItem;
+import net.dulidanci.staffmod.item.custom.MagmaStaffItem;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.PlayerItemTracker;
@@ -46,8 +47,12 @@ public class StaffMod implements ModInitializer {
 				TrackedAnvilEntity.setTargetForAnvils(entity);
 
 				if (player.getMainHandStack().isOf(ModItems.MAGMA_STAFF)) {
-					entity.setOnFireFor(8);
+					if (ManaSupplier.manaCheck(player, MagmaStaffItem.mana)) {
+						entity.setOnFireFor(8);
+					}
+
 				}
+
 				if (player.getMainHandStack().isOf(ModItems.LAPIS_LAZULI_STAFF)) {
 					if (entity instanceof LivingEntity livingEntity) {
 						if (ManaSupplier.manaCheck(player, LapisLazuliStaffItem.manaOnHit)) {
@@ -55,13 +60,14 @@ public class StaffMod implements ModInitializer {
 						}
 					}
 				}
+
 				if (player.getMainHandStack().isOf(ModItems.BELL_STAFF)) {
 					if (entity instanceof MobEntity mob) {
 						BellStaffItem.onHit(mob, world, player);
 					}
 				}
 			}
-			return ActionResult.PASS; // Or CONSUME to cancel further processing
+			return ActionResult.PASS;
 		});
 
 
